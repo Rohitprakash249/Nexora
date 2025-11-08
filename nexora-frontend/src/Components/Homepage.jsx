@@ -54,7 +54,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="p-10 flex justify-center flex-wrap gap-10">
+    <div className="p-10 flex mb-10 justify-center flex-wrap gap-10">
       {loading === true && (
         <div className="flex flex-wrap gap-10">
           <ItemSkeleton />

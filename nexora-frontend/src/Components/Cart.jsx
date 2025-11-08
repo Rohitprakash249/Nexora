@@ -162,8 +162,8 @@ function Cart() {
       </div>
       {/* checkout Form */}
       {displayCheckoutForm === true && (
-        <div className="flex justify-center   ">
-          <div className="max-w-3xl mx-10 mt-8  mb-10 w-full md:w-[90%] my-12  bg-white shadow rounded-lg p-8">
+        <div className="flex justify-center  ">
+          <div className="max-w-3xl mx-5 md:mx-10 mt-8  mb-20 w-full md:w-[90%] my-12  bg-white shadow rounded-lg p-8">
             <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
               Checkout
             </h2>

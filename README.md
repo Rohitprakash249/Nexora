@@ -10,7 +10,7 @@ steps :-
 3. run "npm run dev" after installing all the dependencies.
 
 B.Back-end:- 
-1. navigate to "nexora-backend" folder then run "npm install"
+1. navigate to "nexora-backend" folder inside main folder then run "npm install"
 2. run "node server.js" after installing all the dependencies.
 
 thanks.

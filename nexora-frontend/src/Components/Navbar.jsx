@@ -7,6 +7,9 @@ export default function Navbar() {
   function navigateToCart() {
     navigate("/cart");
   }
+  function navigateToHomepage(){
+    navigate("/")
+  }
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -14,7 +17,7 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl">Nexora Fashion</a>
+        <a className="btn btn-ghost text-xl" onClick={navigateToHomepage}>Nexora Fashion</a>
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">

@@ -13,10 +13,8 @@ function App() {
       <Toaster />
       <Routes>
         <Route path="/" element={<HomePage />} />
-
         <Route path="/cart" element={<Cart />} />
       </Routes>
-
       <Footer />
     </>
   );

@@ -192,6 +192,7 @@ app.post("/api/checkout", (req, res) => {
   res.json({
     message: "Checkout successful.",
     receipt,
+    cartItems: [],
   });
 });
 

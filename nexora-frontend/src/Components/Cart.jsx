@@ -12,6 +12,7 @@ function Cart() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [emailValidOrInvalid, setEmailValidOrInvalid] = useState("");
+  const [placingOrder, setPlacingOrder] = useState(false);
   const getTotal = () => {
     return cartItems
       .reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -25,9 +26,7 @@ function Cart() {
       })
         .then((res) => res.json())
         .then((data) => setCartItems(data.cart));
-    } catch (err) {
-      // console.log("some error occured")
-    }
+    } catch (err) {}
   }
 
   function checkIfAllInfoIsProvided() {
@@ -47,13 +46,16 @@ function Cart() {
     async function handleCheckout() {
       let checkIfAllInfoSupplied = checkIfAllInfoIsProvided();
       if (checkIfAllInfoSupplied === true) {
+        setPlacingOrder(true);
       } else {
+        setPlacingOrder(false);
         return;
       }
       if (cartItems.length === 0) {
         return;
       }
       try {
+        setPlacingOrder(true);
         const response = await fetch("http://localhost:8080/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -66,11 +68,17 @@ function Cart() {
           setReceiptTimeStamp(data.receipt.timestamp);
           //    setTimeStamp(data)
           setDisplayPaymentModal(true);
+          setDisplayCheckoutForm(false);
+          setCartItems([]);
         } else {
           toast.error("checkout failed. Try again.");
+          setPlacingOrder(false);
         }
       } catch (err) {
         alert("Network/Server Error");
+        setPlacingOrder(false);
+      } finally {
+        setPlacingOrder(false);
       }
     }
     handleCheckout();
@@ -196,12 +204,37 @@ function Cart() {
                 placeholder="Enter your email"
               />
             </div>
-            <button
-              onClick={placeOrder}
-              className="w-full mt-4 btn btn-primary"
-            >
-              Place your order
-            </button>
+            {placingOrder === true ? (
+              <button
+                onClick={placeOrder}
+                className="w-full mt-4 btn btn-primary"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide animate-spin lucide-loader-pinwheel-icon lucide-loader-pinwheel"
+                >
+                  <path d="M22 12a1 1 0 0 1-10 0 1 1 0 0 0-10 0" />
+                  <path d="M7 20.7a1 1 0 1 1 5-8.7 1 1 0 1 0 5-8.6" />
+                  <path d="M7 3.3a1 1 0 1 1 5 8.6 1 1 0 1 0 5 8.6" />
+                  <circle cx="12" cy="12" r="10" />
+                </svg>
+              </button>
+            ) : (
+              <button
+                onClick={placeOrder}
+                className="w-full mt-4 btn btn-primary"
+              >
+                Place your order
+              </button>
+            )}
           </div>
         </div>
       )}
